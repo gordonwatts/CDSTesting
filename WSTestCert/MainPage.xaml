@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="WSTestCert.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WSTestCert"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button Content="Find And Load Cert" HorizontalAlignment="Left" Margin="279,78,0,0" VerticalAlignment="Top" Click="LoadPFX"/>
+        <TextBlock HorizontalAlignment="Left" Margin="88,90,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top"/>
+        <TextBox Name="pass" HorizontalAlignment="Left" Margin="141,81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="123"/>
+        <TextBlock Name="CertsSeen" HorizontalAlignment="Left" Margin="88,31,0,0" TextWrapping="Wrap" Text="updating" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="88,168,0,0" TextWrapping="Wrap" Text="Doc ID:" VerticalAlignment="Top"/>
+        <TextBox Name="docid" HorizontalAlignment="Left" Margin="141,158,0,0" TextWrapping="Wrap" Text="1512932" VerticalAlignment="Top" Width="123"/>
+        <Button Content="LoadXML" HorizontalAlignment="Left" Margin="279,156,0,0" VerticalAlignment="Top" Click="LoadMARC21XML"/>
+        <TextBlock Name="Result" HorizontalAlignment="Left" Margin="408,168,0,0" TextWrapping="Wrap" Text="click-button" VerticalAlignment="Top"/>
+
+    </Grid>
+</Page>
