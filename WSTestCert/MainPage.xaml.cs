@@ -121,7 +121,9 @@ namespace WSTestCert
             bpf.ClientCertificate = (await GetAllCerts("CERN")).First();
 
             var aClient = new HttpClient(bpf);
-            var result = await aClient.GetStringAsync(reqUri);
+            var response = await aClient.GetAsync(reqUri);
+            var h = response.Headers;
+            var result = await response.Content.ReadAsStringAsync();
             if (result.Contains(docid))
             {
                 Result.Text = "Got back good XML";
