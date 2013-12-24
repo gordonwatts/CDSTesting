@@ -85,6 +85,11 @@ namespace DesktopUnitTests
 #endif
         }
 
+        /// <summary>
+        /// Extract title info from the html
+        /// </summary>
+        /// <param name="resp"></param>
+        /// <returns></returns>
         private static async Task ExtractHTMLTitleInfo(WebResponse resp)
         {
             using (var rdr = new StreamReader(resp.GetResponseStream()))
@@ -159,6 +164,10 @@ namespace DesktopUnitTests
             }
         }
 
+        /// <summary>
+        /// Track cookies for all our requests - necessary b.c. that is how the
+        /// web knows what we want.
+        /// </summary>
         private static CookieContainer gCookies = new CookieContainer();
 
         /// <summary>
@@ -202,6 +211,10 @@ namespace DesktopUnitTests
             return h;
         }
 
+        /// <summary>
+        /// Dump useful debugging info.
+        /// </summary>
+        /// <param name="resp"></param>
         private static void DumpResponseInfo(WebResponse resp)
         {
             Console.WriteLine("Who responded: {0}", resp.ResponseUri.ToString());
