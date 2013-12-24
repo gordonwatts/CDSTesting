@@ -1,9 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using HtmlAgilityPack;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace DesktopUnitTests
@@ -32,7 +35,7 @@ namespace DesktopUnitTests
 
             // Step one, access the protected page. We get back a login-in URL
 
-            var initialRequest = CreateRequest(u, cert);
+            var initialRequest = await CreateRequest(u, cert);
             DumpRequest(initialRequest);
             var resp = await initialRequest.GetResponseAsync();
 
@@ -44,7 +47,7 @@ namespace DesktopUnitTests
             // NOTE: it looks like we could have added a client cert here. Is that was is needed?
             // NOTE: The method is POST b.c. that is what it is in the perl code. Test that?
 
-            var loginRequest = CreateRequest(resp.ResponseUri, cert);
+            var loginRequest = await CreateRequest(resp.ResponseUri, cert);
             loginRequest.Method = "POST";
             loginRequest.ContentLength = 0;
             DumpRequest(loginRequest);
@@ -52,18 +55,57 @@ namespace DesktopUnitTests
             resp = await loginRequest.GetResponseAsync();
             DumpResponseInfo(resp);
 
+            Uri homeSiteLoginRedirect = null;
+            var repostFields = new Dictionary<string, string>();
             using (var rdr = new StreamReader(resp.GetResponseStream()))
             {
                 var text = await rdr.ReadToEndAsync();
                 Assert.IsFalse(text.Contains("HTTP Error 401.2 - Unauthorized"), "unauth error came back.");
+
+                // This should contain a redirect that is deep in a http form. We need to parse that out.
+                var doc = new HtmlDocument();
+                doc.LoadHtml(text);
+                var forms = doc.DocumentNode.SelectNodes("//form").ToArray();
+                Assert.AreEqual(1, forms.Length, "Should be only one form back");
+                var form = forms[0];
+
+                homeSiteLoginRedirect = new Uri(form.Attributes["action"].Value);
+
+                foreach (var inputs in form.SelectNodes("//input[@type]"))
+                {
+                    if (inputs.Attributes["type"].Value == "hidden")
+                    {
+                        var name = inputs.Attributes["name"].Value;
+                        var value = WebUtility.HtmlDecode(inputs.Attributes["value"].Value);
+                        Console.WriteLine("  Form data found: {0} with value {1}", name, "<temp>");
+                        repostFields[name] = value;
+                    }
+                }
             }
 
-            // Step three: the request to the original resource to see if it worked (or not).
-            var finalRequest = CreateRequest(u, cert);
-            DumpRequest(finalRequest);
+            // Step three: request the login redirect
+            var loginHomeRedirect = await CreateRequest(homeSiteLoginRedirect, cert, repostFields);
+            DumpRequest(loginHomeRedirect);
+            resp = await loginHomeRedirect.GetResponseAsync();
+            DumpResponseInfo(resp);
+            Assert.AreEqual(url, resp.ResponseUri.OriginalString, "Redirect to where we wanted to go!");
 
+            // Step 4: the request to the original resource to see if it worked (or not).
+            var finalRequest = await CreateRequest(u, cert);
+            DumpRequest(finalRequest);
             resp = await finalRequest.GetResponseAsync();
             DumpResponseInfo(resp);
+            using (var rdr = new StreamReader(resp.GetResponseStream()))
+            {
+                var text = await rdr.ReadToEndAsync();
+                Console.WriteLine("==> Size of html is {0} bytes", text.Length);
+                var doc = new HtmlDocument();
+                doc.LoadHtml(text);
+                foreach (var titleNodes in doc.DocumentNode.SelectNodes("//title"))
+                {
+                    Console.WriteLine("  HTML Title: {0}", titleNodes.InnerHtml);
+                }
+            }
         }
 
         /// <summary>
@@ -73,6 +115,9 @@ namespace DesktopUnitTests
         private void DumpRequest(HttpWebRequest initialRequest)
         {
             Console.WriteLine("Requesting {0}", initialRequest.RequestUri.OriginalString);
+            Console.WriteLine("  Content-Length: {0}", initialRequest.ContentLength);
+            if (initialRequest.ContentLength > 0)
+                Console.WriteLine("  Content-Type: {0}", initialRequest.ContentType);
             if (initialRequest.SupportsCookieContainer && initialRequest.CookieContainer != null)
             {
                 var allcookies = initialRequest.CookieContainer.GetCookies(initialRequest.RequestUri);
@@ -91,7 +136,7 @@ namespace DesktopUnitTests
         /// </summary>
         /// <param name="u"></param>
         /// <returns></returns>
-        private HttpWebRequest CreateRequest(Uri u, X509Certificate2 cerncert)
+        private async Task<HttpWebRequest> CreateRequest(Uri u, X509Certificate2 cerncert, Dictionary<string, string> postData = null)
         {
             var h = WebRequest.CreateHttp(u);
 
@@ -106,6 +151,28 @@ namespace DesktopUnitTests
             // NOTE: not obvious when and how often this has to be attached.
             // Perhaps only when the actual log-in page is referenced?
             h.ClientCertificates.Add(cerncert);
+
+            // If there is post data, add it
+            if (postData != null)
+            {
+                h.Method = "POST";
+                h.ContentType = "application/x-www-form-urlencoded";
+                StringBuilder bld = new StringBuilder();
+                bool first = true;
+                foreach (var item in postData)
+                {
+                    if (!first)
+                        bld.Append("&");
+                    first = false;
+                    bld.AppendFormat("{0}={1}", item.Key, Uri.EscapeDataString(item.Value));
+                }
+                Byte[] PostBuffer = System.Text.Encoding.UTF8.GetBytes(bld.ToString());
+                using (var wrtr = await h.GetRequestStreamAsync())
+                {
+                    await wrtr.WriteAsync(PostBuffer, 0, PostBuffer.Length);
+                    wrtr.Close();
+                }
+            }
 
             return h;
         }
