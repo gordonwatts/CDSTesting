@@ -46,14 +46,11 @@ namespace DesktopUnitTests
             Assert.IsTrue(resp.ResponseUri.AbsolutePath.StartsWith("/adfs/ls/"), string.Format("Didn't see the login redirect - this url doesn't require auth? - response uri '{0}'", url));
 
             // Step two: Create a new web request using this redirect, and add the cert to it.
-            // NOTE: The method is POST b.c. that is what it is in the perl code. Test that?
             // The CERT must be attached here, or the request will fail. But after this cookies are good enough to
             // power the access.
 
             var loginRequest = await CreateRequest(resp.ResponseUri, cert);
             loginRequest.ClientCertificates.Add(cert);
-            loginRequest.Method = "POST";
-            loginRequest.ContentLength = 0;
             DumpRequest(loginRequest);
 
             resp = await loginRequest.GetResponseAsync();
