@@ -34,8 +34,10 @@ namespace DesktopUnitTests
             Assert.IsNotNull(cert);
 
             // Step one, access the protected page. We get back a login-in URL
+            // The CERT must be attached here or the request will fail.
 
             var initialRequest = await CreateRequest(u, cert);
+            initialRequest.ClientCertificates.Add(cert);
             DumpRequest(initialRequest);
             var resp = await initialRequest.GetResponseAsync();
 
@@ -44,10 +46,12 @@ namespace DesktopUnitTests
             Assert.IsTrue(resp.ResponseUri.AbsolutePath.StartsWith("/adfs/ls/"), string.Format("Didn't see the login redirect - this url doesn't require auth? - response uri '{0}'", url));
 
             // Step two: Create a new web request using this redirect, and add the cert to it.
-            // NOTE: it looks like we could have added a client cert here. Is that was is needed?
             // NOTE: The method is POST b.c. that is what it is in the perl code. Test that?
+            // The CERT must be attached here, or the request will fail. But after this cookies are good enough to
+            // power the access.
 
             var loginRequest = await CreateRequest(resp.ResponseUri, cert);
+            loginRequest.ClientCertificates.Add(cert);
             loginRequest.Method = "POST";
             loginRequest.ContentLength = 0;
             DumpRequest(loginRequest);
@@ -146,11 +150,6 @@ namespace DesktopUnitTests
 
             // Cache cookies going back and forth, with the sso requires.
             h.CookieContainer = gCookies;
-
-            // Add the client cert for login.
-            // NOTE: not obvious when and how often this has to be attached.
-            // Perhaps only when the actual log-in page is referenced?
-            h.ClientCertificates.Add(cerncert);
 
             // If there is post data, add it
             if (postData != null)
