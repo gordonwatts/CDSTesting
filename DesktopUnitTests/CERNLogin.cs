@@ -63,17 +63,30 @@ namespace DesktopUnitTests
             var repostFields = parsedData.Item2;
 
             // Step three: request the login redirect
+            // NOTE: I've gotten "bad gateway" sometimes with this request - but it works
+            // the next time we try. CERN's SSO isn't known for being reliable, so we may
+            // have to account for that!
             var loginHomeRedirect = await CreateRequest(homeSiteLoginRedirect, cert, repostFields);
             DumpRequest(loginHomeRedirect);
             resp = await loginHomeRedirect.GetResponseAsync();
             DumpResponseInfo(resp);
             Assert.AreEqual(url, resp.ResponseUri.OriginalString, "Redirect to where we wanted to go!");
+            await ExtractHTMLTitleInfo(resp);
 
+#if false
             // Step 4: the request to the original resource to see if it worked (or not).
+            // This isn't needed unless the person wants to test - the above should have done a redirect
+            // automatically to the actual resource we want, and so should contain everything.
             var finalRequest = await CreateRequest(u, cert);
             DumpRequest(finalRequest);
             resp = await finalRequest.GetResponseAsync();
             DumpResponseInfo(resp);
+            await ExtractHTMLTitleInfo(resp);
+#endif
+        }
+
+        private static async Task ExtractHTMLTitleInfo(WebResponse resp)
+        {
             using (var rdr = new StreamReader(resp.GetResponseStream()))
             {
                 var text = await rdr.ReadToEndAsync();
