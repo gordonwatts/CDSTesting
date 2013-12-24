@@ -40,11 +40,12 @@ namespace DesktopUnitTests
             initialRequest.ClientCertificates.Add(cert);
             DumpRequest(initialRequest);
             var resp = await initialRequest.GetResponseAsync();
-
             DumpResponseInfo(resp);
 
             Assert.IsTrue(resp.ResponseUri.AbsolutePath.StartsWith("/adfs/ls/"), string.Format("Didn't see the login redirect - this url doesn't require auth? - response uri '{0}'", url));
 
+#if false
+            // Step two is very much part of the perl script, but it does not seem to be required at all!
             // Step two: Create a new web request using this redirect, and add the cert to it.
             // The CERT must be attached here, or the request will fail. But after this cookies are good enough to
             // power the access.
@@ -55,7 +56,44 @@ namespace DesktopUnitTests
 
             resp = await loginRequest.GetResponseAsync();
             DumpResponseInfo(resp);
+#endif
 
+            var parsedData = await ParseReply(resp);
+            Uri homeSiteLoginRedirect = parsedData.Item1;
+            var repostFields = parsedData.Item2;
+
+            // Step three: request the login redirect
+            var loginHomeRedirect = await CreateRequest(homeSiteLoginRedirect, cert, repostFields);
+            DumpRequest(loginHomeRedirect);
+            resp = await loginHomeRedirect.GetResponseAsync();
+            DumpResponseInfo(resp);
+            Assert.AreEqual(url, resp.ResponseUri.OriginalString, "Redirect to where we wanted to go!");
+
+            // Step 4: the request to the original resource to see if it worked (or not).
+            var finalRequest = await CreateRequest(u, cert);
+            DumpRequest(finalRequest);
+            resp = await finalRequest.GetResponseAsync();
+            DumpResponseInfo(resp);
+            using (var rdr = new StreamReader(resp.GetResponseStream()))
+            {
+                var text = await rdr.ReadToEndAsync();
+                Console.WriteLine("==> Size of html is {0} bytes", text.Length);
+                var doc = new HtmlDocument();
+                doc.LoadHtml(text);
+                foreach (var titleNodes in doc.DocumentNode.SelectNodes("//title"))
+                {
+                    Console.WriteLine("  HTML Title: {0}", titleNodes.InnerHtml);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Utility routine to parse the HTML form that comes back.
+        /// </summary>
+        /// <param name="resp"></param>
+        /// <returns></returns>
+        private async Task<Tuple<Uri, Dictionary<string, string>>> ParseReply(WebResponse resp)
+        {
             Uri homeSiteLoginRedirect = null;
             var repostFields = new Dictionary<string, string>();
             using (var rdr = new StreamReader(resp.GetResponseStream()))
@@ -84,29 +122,7 @@ namespace DesktopUnitTests
                 }
             }
 
-            // Step three: request the login redirect
-            var loginHomeRedirect = await CreateRequest(homeSiteLoginRedirect, cert, repostFields);
-            DumpRequest(loginHomeRedirect);
-            resp = await loginHomeRedirect.GetResponseAsync();
-            DumpResponseInfo(resp);
-            Assert.AreEqual(url, resp.ResponseUri.OriginalString, "Redirect to where we wanted to go!");
-
-            // Step 4: the request to the original resource to see if it worked (or not).
-            var finalRequest = await CreateRequest(u, cert);
-            DumpRequest(finalRequest);
-            resp = await finalRequest.GetResponseAsync();
-            DumpResponseInfo(resp);
-            using (var rdr = new StreamReader(resp.GetResponseStream()))
-            {
-                var text = await rdr.ReadToEndAsync();
-                Console.WriteLine("==> Size of html is {0} bytes", text.Length);
-                var doc = new HtmlDocument();
-                doc.LoadHtml(text);
-                foreach (var titleNodes in doc.DocumentNode.SelectNodes("//title"))
-                {
-                    Console.WriteLine("  HTML Title: {0}", titleNodes.InnerHtml);
-                }
-            }
+            return Tuple.Create(homeSiteLoginRedirect, repostFields);
         }
 
         /// <summary>
