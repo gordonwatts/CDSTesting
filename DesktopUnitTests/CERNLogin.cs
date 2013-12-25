@@ -126,7 +126,7 @@ namespace DesktopUnitTests
             // Step one, access the protected page. We get back a login-in URL
             // The CERT must be attached here or the request will fail.
 
-            var initialRequest = await CreateRequest(u, cert);
+            var initialRequest = await CreateRequest(u);
             initialRequest.ClientCertificates.Add(cert);
             DumpRequest(initialRequest);
             var resp = await initialRequest.GetResponseAsync();
@@ -156,7 +156,7 @@ namespace DesktopUnitTests
             // NOTE: I've gotten "bad gateway" sometimes with this request - but it works
             // the next time we try. CERN's SSO isn't known for being reliable, so we may
             // have to account for that!
-            var loginHomeRedirect = await CreateRequest(homeSiteLoginRedirect, cert, repostFields);
+            var loginHomeRedirect = await CreateRequest(homeSiteLoginRedirect, repostFields);
             DumpRequest(loginHomeRedirect);
             resp = await loginHomeRedirect.GetResponseAsync();
             DumpResponseInfo(resp);
@@ -302,7 +302,7 @@ namespace DesktopUnitTests
         /// </summary>
         /// <param name="u"></param>
         /// <returns></returns>
-        private async Task<HttpWebRequest> CreateRequest(Uri u, X509Certificate2 cerncert, IDictionary<string, string> postData = null)
+        private async Task<HttpWebRequest> CreateRequest(Uri u, IDictionary<string, string> postData = null)
         {
             var h = WebRequest.CreateHttp(u);
 
