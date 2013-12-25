@@ -30,7 +30,7 @@ namespace DesktopUnitTests
             string url = "https://cds.cern.ch/record/1512932?ln=en";
             var logininfo = LookupUserPass();
 
-            // x-chcks
+            // x-checks
 
             var u = new Uri(url);
 
@@ -108,7 +108,7 @@ namespace DesktopUnitTests
         /// This is meant to be a desktop version of the code to log-in to the CERN CDS site.
         /// </summary>
         /// <remarks>
-        /// Can we just get headers in some places in case the resource is large (like several megs)?
+        /// Can we just get headers in some places in case the resource is large (like several messages)?
         /// </remarks>
         [TestMethod]
         public async Task LoginToCDSWithCERT()
@@ -120,7 +120,7 @@ namespace DesktopUnitTests
 
             // Just to make sure, even though this is a test.
 
-            var u = new Uri(url); // Fails if the url is badly formed.
+            var u = new Uri(url); // Fails if the URL is badly formed.
             Assert.IsNotNull(cert);
 
             // Step one, access the protected page. We get back a login-in URL
@@ -132,10 +132,10 @@ namespace DesktopUnitTests
             var resp = await initialRequest.GetResponseAsync();
             DumpResponseInfo(resp);
 
-            Assert.IsTrue(resp.ResponseUri.AbsolutePath.StartsWith("/adfs/ls/"), string.Format("Didn't see the login redirect - this url doesn't require auth? - response uri '{0}'", url));
+            Assert.IsTrue(resp.ResponseUri.AbsolutePath.StartsWith("/adfs/ls/"), string.Format("Didn't see the login redirect - this URL doesn't require authorization? - response Uri '{0}'", url));
 
 #if false
-            // Step two is very much part of the perl script, but it does not seem to be required at all!
+            // Step two is very much part of the Perl script, but it does not seem to be required at all!
             // Step two: Create a new web request using this redirect, and add the cert to it.
             // The CERT must be attached here, or the request will fail. But after this cookies are good enough to
             // power the access.
@@ -176,7 +176,7 @@ namespace DesktopUnitTests
         }
 
         /// <summary>
-        /// Extract title info from the html
+        /// Extract title info from the HTML
         /// </summary>
         /// <param name="resp"></param>
         /// <returns></returns>
@@ -185,7 +185,7 @@ namespace DesktopUnitTests
             using (var rdr = new StreamReader(resp.GetResponseStream()))
             {
                 var text = await rdr.ReadToEndAsync();
-                Console.WriteLine("==> Size of html is {0} bytes", text.Length);
+                Console.WriteLine("==> Size of HTML is {0} bytes", text.Length);
                 var doc = new HtmlDocument();
                 doc.LoadHtml(text);
                 foreach (var titleNodes in doc.DocumentNode.SelectNodes("//title"))
@@ -206,7 +206,7 @@ namespace DesktopUnitTests
             using (var rdr = new StreamReader(resp.GetResponseStream()))
             {
                 var text = await rdr.ReadToEndAsync();
-                Assert.IsFalse(text.Contains("HTTP Error 401.2 - Unauthorized"), "unauth error came back.");
+                Assert.IsFalse(text.Contains("HTTP Error 401.2 - Unauthorized"), "unauthorized error came back.");
 
                 var info = ExtractFormInfo(text);
                 return Tuple.Create(info.Action, info.RepostFields);
@@ -233,7 +233,7 @@ namespace DesktopUnitTests
         {
             var result = new FormInfo();
 
-            // This should contain a redirect that is deep in a http form. We need to parse that out.
+            // This should contain a redirect that is deep in a HTTP form. We need to parse that out.
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
             var forms = doc.DocumentNode.SelectNodes("//form").ToArray();
@@ -348,7 +348,7 @@ namespace DesktopUnitTests
         }
 
         /// <summary>
-        /// Properly encode form data for the html request, and switch it to be a post.
+        /// Properly encode form data for the HTML request, and switch it to be a post.
         /// </summary>
         /// <param name="postData"></param>
         /// <param name="h"></param>
@@ -388,7 +388,7 @@ namespace DesktopUnitTests
             Console.WriteLine("  Content Length: {0}", resp.ContentLength);
             foreach (string header in resp.Headers.Keys)
             {
-                Console.WriteLine(" Hdr: {0} => {1}", header, resp.Headers[header]);
+                Console.WriteLine(" Header: {0} => {1}", header, resp.Headers[header]);
             }
             var respH = resp as HttpWebResponse;
             foreach (var c in respH.Cookies)
