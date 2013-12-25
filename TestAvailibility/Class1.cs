@@ -12,7 +12,7 @@ namespace TestAvailibility
             //h.ClientCertificates.Add(null); Not availible in windows store!
 
             //var filter = new HttpBaseProtocolFilter();
-            var handler = new HttpClient();
+            //var handler = new HttpClient();
         }
     }
 }
