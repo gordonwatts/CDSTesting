@@ -134,7 +134,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="CERNSSOWindowsStore">
+    <Reference Include="CERNSSOWindowsStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CERNSSO.1.0.0-beta00\lib\windows8\CERNSSOWindowsStore.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">

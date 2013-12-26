@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CERNSSOWindowsDesktop">
+    <Reference Include="CERNSSOWindowsDesktop, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CERNSSO.1.0.0-beta00\lib\net45\CERNSSOWindowsDesktop.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
