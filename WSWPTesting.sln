@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetPackageTest", "NugetPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetTestDesktop", "NugetTestDesktop\NugetTestDesktop.csproj", "{7E02C070-0CE7-4215-9A52-22B6C37BFC67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetTestWStore", "NugetTestWStore\NugetTestWStore.csproj", "{4F116CE8-274C-476E-9D9B-EE03731A5AC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,11 +141,36 @@ Global
 		{7E02C070-0CE7-4215-9A52-22B6C37BFC67}.Release|ARM.ActiveCfg = Release|Any CPU
 		{7E02C070-0CE7-4215-9A52-22B6C37BFC67}.Release|x64.ActiveCfg = Release|Any CPU
 		{7E02C070-0CE7-4215-9A52-22B6C37BFC67}.Release|x86.ActiveCfg = Release|Any CPU
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|ARM.ActiveCfg = Debug|ARM
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|ARM.Build.0 = Debug|ARM
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|ARM.Deploy.0 = Debug|ARM
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|x64.ActiveCfg = Debug|x64
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|x64.Build.0 = Debug|x64
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|x64.Deploy.0 = Debug|x64
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|x86.ActiveCfg = Debug|x86
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|x86.Build.0 = Debug|x86
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Debug|x86.Deploy.0 = Debug|x86
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|ARM.ActiveCfg = Release|ARM
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|ARM.Build.0 = Release|ARM
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|ARM.Deploy.0 = Release|ARM
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|x64.ActiveCfg = Release|x64
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|x64.Build.0 = Release|x64
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|x64.Deploy.0 = Release|x64
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|x86.ActiveCfg = Release|x86
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|x86.Build.0 = Release|x86
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7E02C070-0CE7-4215-9A52-22B6C37BFC67} = {6AB777BE-6A49-4932-BD13-E02D7DF3FA2A}
+		{4F116CE8-274C-476E-9D9B-EE03731A5AC6} = {6AB777BE-6A49-4932-BD13-E02D7DF3FA2A}
 	EndGlobalSection
 EndGlobal
