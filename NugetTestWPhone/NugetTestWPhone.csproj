@@ -149,9 +149,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="CERNSSOWindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CERNSSO.1.0.0-beta00\lib\windowsphone8\CERNSSOWindowsPhone.dll</HintPath>
+    <Reference Include="CERNSSOPCL">
+      <HintPath>..\packages\CERNSSO.1.1.0\lib\windowsphone8\CERNSSOPCL.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
