@@ -32,18 +32,17 @@ namespace ViewModels.ViewModels
         /// </summary>
         public ReactiveCommand AddDocToCollection;
 
-        private ObservableAsPropertyHelper<string> _TitleOAPH;
-        private ObservableAsPropertyHelper<string> _AbstractOAPH;
-
         /// <summary>
         /// Readonly property that is the title we've found on CDS after doing the search.
         /// </summary>
         public string Title { get { return _TitleOAPH.Value; } }
+        private ObservableAsPropertyHelper<string> _TitleOAPH;
 
         /// <summary>
         /// Readonly property that is the abstract we've found on CDS after doing the search.
         /// </summary>
         public string Abstract { get { return _AbstractOAPH.Value; } }
+        private ObservableAsPropertyHelper<string> _AbstractOAPH;
 
         /// <summary>
         /// Do the actual search.
