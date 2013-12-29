@@ -46,7 +46,6 @@ namespace ViewModelsWSTest.ViewModels
                 Assert.AreEqual("title", vm.Title, "set title");
                 Assert.AreEqual("abstract", vm.Abstract, "set abstract");
             });
-
         }
 
         /// <summary>
