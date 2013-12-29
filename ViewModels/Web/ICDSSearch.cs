@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 using ViewModels.Data;
 
 namespace ViewModels.Web
@@ -10,6 +10,6 @@ namespace ViewModels.Web
         /// </summary>
         /// <param name="searchinfo"></param>
         /// <returns></returns>
-        Task<PaperData> GetPaperData(string searchinfo);
+        IObservable<PaperData> GetPaperData(string searchinfo);
     }
 }

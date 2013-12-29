@@ -56,7 +56,7 @@ namespace ViewModels.ViewModels
         {
             // This command fires off when we need to execute the command.
             ExecuteSearch = new ReactiveCommand();
-            var searchResults = ExecuteSearch.RegisterAsyncTask(x => searcher.GetPaperData(CDSLookupString));
+            var searchResults = ExecuteSearch.RegisterAsync(x => searcher.GetPaperData(CDSLookupString));
 
             searchResults
                 .Select(x => x.Title)
@@ -68,7 +68,7 @@ namespace ViewModels.ViewModels
             // When the user has finished typing in some amount of "stuff", we
             // should do the search.
             this.ObservableForProperty(p => p.CDSLookupString)
-                .Throttle(TimeSpan.FromMilliseconds(500))
+                .Throttle(TimeSpan.FromMilliseconds(500), RxApp.TaskpoolScheduler)
                 .Select(x => x.Value)
                 .DistinctUntilChanged()
                 .Where(x => !string.IsNullOrWhiteSpace(x))
