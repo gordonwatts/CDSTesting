@@ -18,7 +18,7 @@ namespace ViewModelsWSTest.ViewModels
         public async Task TestSimpleSearch()
         {
             var searcher = new dummySearch();
-            var vm = new AddPageVM(searcher);
+            var vm = new AddPageVM(null, searcher);
 
             Assert.IsNull(vm.Title, "title");
             Assert.IsNull(vm.Abstract, "abstract");
@@ -35,7 +35,7 @@ namespace ViewModelsWSTest.ViewModels
             new TestScheduler().With(sched =>
             {
                 var searcher = new dummySearchWithTime();
-                var vm = new AddPageVM(searcher);
+                var vm = new AddPageVM(null, searcher);
 
                 vm.CDSLookupString = "1234"; // Fire off a search.
 

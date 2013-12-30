@@ -4,7 +4,7 @@ using ViewModels.Data;
 
 namespace ViewModels.Web
 {
-    class RealCDSSearch : ICDSSearch
+    public class RealCDSSearch : ICDSSearch
     {
         public IObservable<PaperData> GetPaperData(string searchinfo)
         {

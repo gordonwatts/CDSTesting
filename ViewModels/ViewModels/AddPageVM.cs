@@ -13,7 +13,7 @@ namespace ViewModels.ViewModels
     /// 4. After the result is done the final fields are populated and an "Add" button is enabled.
     /// 5. Hitting the add button does nothing for now, but would in the real app...
     /// </summary>
-    public class AddPageVM : ReactiveObject
+    public class AddPageVM : ReactiveObject, IRoutableViewModel
     {
         /// <summary>
         /// Get/Set the CDS lookup string. We use this to do the search on the website of what
@@ -52,7 +52,7 @@ namespace ViewModels.ViewModels
         /// <summary>
         /// Setup the view model with default initial settings.
         /// </summary>
-        public AddPageVM(ICDSSearch searcher)
+        public AddPageVM(IScreen homescreen, ICDSSearch searcher)
         {
             // This command fires off when we need to execute the command.
             ExecuteSearch = new ReactiveCommand();
@@ -73,6 +73,13 @@ namespace ViewModels.ViewModels
                 .DistinctUntilChanged()
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Subscribe(x => ExecuteSearch.Execute(x));
+
+            // Set up routing
+            HostScreen = homescreen;
         }
+
+        public IScreen HostScreen { get; protected set; }
+
+        public string UrlPathSegment { get { return "AddCDS"; } }
     }
 }
