@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
+using ViewModels.ViewModels;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;
 
@@ -25,14 +26,15 @@ namespace CMWSAddCDSDoc
             container = new WinRTContainer();
             container.RegisterWinRTServices();
 
-#if false
             container
-                .PerRequest<ReactiveViewModel>()
-                .PerRequest<MyViewDudeViewModel>();
-#endif
-            // We want to use the Frame in OnLaunched so set it up here
+                .PerRequest<HomePageCMViewModel>();
 
+            // We want to use the Frame in OnLaunched so set it up here
             PrepareViewFirst();
+
+            // We are crossing projects for views and view models. Set that up for the
+            // type resolver.
+            ViewLocator.AddNamespaceMapping("ViewModels.ViewModels", "CMWSAddCDSDoc.Views");
         }
 
         protected override object GetInstance(Type service, string key)
@@ -54,9 +56,14 @@ namespace CMWSAddCDSDoc
             container.BuildUp(instance);
         }
 
+        /// <summary>
+        /// Setup first view, remember the PCL version of the nav service.
+        /// </summary>
+        /// <param name="rootFrame"></param>
         protected override void PrepareViewFirst(Frame rootFrame)
         {
             navigationService = container.RegisterNavigationService(rootFrame);
+            Caliburn.Micro.Portable.WS.NavService.RegisterINavService(navigationService, container);
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
@@ -76,10 +83,8 @@ namespace CMWSAddCDSDoc
                 resumed = navigationService.ResumeState();
             }
 
-#if false
             if (!resumed)
-                DisplayRootView<ReactiveView>();
-#endif
+                DisplayRootViewFor<HomePageCMViewModel>();
         }
     }
 }

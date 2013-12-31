@@ -109,6 +109,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\HomePageCMView.xaml.cs">
+      <DependentUpon>HomePageCMView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -132,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\HomePageCMView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro">
@@ -143,15 +150,54 @@
     <Reference Include="Caliburn.Micro.Platform">
       <HintPath>..\packages\Caliburn.Micro.2.0.0-rc\lib\win81\Caliburn.Micro.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Caliburn.Micro.Portable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Caliburn.Micro.Portable.1.0.0-alpha02\lib\WinRT451\Caliburn.Micro.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Portable.WS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Caliburn.Micro.Portable.1.0.0-alpha02\lib\WinRT451\Caliburn.Micro.Portable.WS.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Interactions">
       <HintPath>..\packages\Caliburn.Micro.2.0.0-rc\lib\win81\Microsoft.Xaml.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Interactivity">
       <HintPath>..\packages\Caliburn.Micro.2.0.0-rc\lib\win81\Microsoft.Xaml.Interactivity.dll</HintPath>
     </Reference>
+    <Reference Include="ReactiveUI">
+      <HintPath>..\packages\reactiveui-core.5.99.0-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI.Xaml">
+      <HintPath>..\packages\reactiveui-platforms.5.99.0-beta\lib\WinRT45\ReactiveUI.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat">
+      <HintPath>..\packages\Splat.1.1.1\lib\NetCore45\Splat.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.2\lib\windows8\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.2\lib\windows8\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.2\lib\windows8\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.2\lib\windows8\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading">
+      <HintPath>..\packages\Rx-XAML.2.2.2\lib\windows8\System.Reactive.Windows.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.WindowsRuntime">
+      <HintPath>..\packages\Rx-WinRT.2.2.2\lib\windows8\System.Reactive.WindowsRuntime.dll</HintPath>
+    </Reference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Views\" />
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+      <Project>{4db0576b-6e06-4e07-adf1-ec387e2dd419}</Project>
+      <Name>ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
