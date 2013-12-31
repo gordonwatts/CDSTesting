@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Data\PaperData.cs" />
+    <Compile Include="ViewModels\AddPageCMViewModel.cs" />
     <Compile Include="ViewModels\HomePageCMViewModel.cs" />
     <Compile Include="ViewModels\HomePageVM.cs" />
     <Compile Include="Web\ICDSSearch.cs" />
@@ -50,7 +51,7 @@
       <HintPath>..\packages\Caliburn.Micro.Core.2.0.0-rc\lib\portable-net45+sl5+win8+wp8\Caliburn.Micro.dll</HintPath>
     </Reference>
     <Reference Include="Caliburn.Micro.Portable">
-      <HintPath>..\packages\Caliburn.Micro.Portable.1.0.0-alpha02\lib\portable-net45+windowsphone8+WinRT45\Caliburn.Micro.Portable.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.Portable.1.0.0-alpha03\lib\portable-net45+windowsphone8+WinRT45\Caliburn.Micro.Portable.dll</HintPath>
     </Reference>
     <Reference Include="ReactiveUI">
       <HintPath>..\packages\reactiveui-core.5.99.0-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>

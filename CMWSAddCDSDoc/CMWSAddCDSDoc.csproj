@@ -109,6 +109,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\AddPageCM.xaml.cs">
+      <DependentUpon>AddPageCM.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePageCMView.xaml.cs">
       <DependentUpon>HomePageCMView.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\AddPageCM.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomePageCMView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,11 +159,11 @@
     </Reference>
     <Reference Include="Caliburn.Micro.Portable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Caliburn.Micro.Portable.1.0.0-alpha02\lib\WinRT451\Caliburn.Micro.Portable.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.Portable.1.0.0-alpha03\lib\WinRT451\Caliburn.Micro.Portable.dll</HintPath>
     </Reference>
     <Reference Include="Caliburn.Micro.Portable.WS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Caliburn.Micro.Portable.1.0.0-alpha02\lib\WinRT451\Caliburn.Micro.Portable.WS.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.Portable.1.0.0-alpha03\lib\WinRT451\Caliburn.Micro.Portable.WS.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Interactions">
       <HintPath>..\packages\Caliburn.Micro.2.0.0-rc\lib\win81\Microsoft.Xaml.Interactions.dll</HintPath>

@@ -21,5 +21,10 @@ namespace ViewModels.ViewModels
         {
             _nav = nav;
         }
+
+        public void MyButton()
+        {
+            _nav.DisplayViewModelFor<AddPageCMViewModel>();
+        }
     }
 }
