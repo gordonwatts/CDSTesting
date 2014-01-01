@@ -8,8 +8,12 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Name="MyButton" Content="Button" HorizontalAlignment="Left" Margin="587,209,0,0" VerticalAlignment="Top"/>
-        <TextBlock Name="TestBlock" HorizontalAlignment="Left" Margin="778,309,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-
+        <Grid.RowDefinitions>
+        </Grid.RowDefinitions>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Name="CmdAdd" Icon="Add" Label="Add" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -22,7 +22,7 @@ namespace ViewModels.ViewModels
             _nav = nav;
         }
 
-        public void MyButton()
+        public void CmdAdd()
         {
             _nav.DisplayViewModelFor<AddCMViewModel>();
         }
