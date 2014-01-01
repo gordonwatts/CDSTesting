@@ -42,6 +42,12 @@ namespace ViewModels.ViewModels
         private ObservableAsPropertyHelper<string> _AbstractOAPH;
 
         /// <summary>
+        /// True when a search is on-going (i.e. wait...)
+        /// </summary>
+        public bool SearchInProgress { get { return _SearchInProgress.Value; } }
+        private ObservableAsPropertyHelper<bool> _SearchInProgress;
+
+        /// <summary>
         /// Do the actual search.
         /// </summary>
         private ReactiveCommand ExecuteSearch;
@@ -64,6 +70,10 @@ namespace ViewModels.ViewModels
             searchResults
                 .Select(x => x.Abstract)
                 .ToPropertyCM(this, x => x.Abstract, out _AbstractOAPH);
+
+            ExecuteSearch.Select(x => true)
+                .Merge(searchResults.Select(x => false))
+                .ToPropertyCM(this, x => x.SearchInProgress, out _SearchInProgress, false);
 
             // When the user has finished typing in some amount of "stuff", we
             // should do the search.

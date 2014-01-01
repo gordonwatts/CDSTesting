@@ -11,6 +11,7 @@
         <TextBox Name ="CDSLookupString" HorizontalAlignment="Left" Margin="113,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="728"/>
         <TextBlock Name="Title" HorizontalAlignment="Left" Margin="113,145,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Height="29" Width="728"/>
         <TextBlock Name="Abstract" HorizontalAlignment="Left" Margin="113,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="322" Width="728"/>
+        <ProgressRing Name="SearchInProgress" HorizontalAlignment="Left" Margin="870,47,0,0" VerticalAlignment="Top" Height="59" Width="68"/>
 
     </Grid>
 </Page>

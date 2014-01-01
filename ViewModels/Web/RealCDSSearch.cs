@@ -10,7 +10,7 @@ namespace ViewModels.Web
         {
             return Observable
                 .Return(new Data.PaperData() { Abstract = "this is the abstract", Title = "not going to happen" })
-                .Delay(TimeSpan.FromSeconds(10));
+                .Delay(TimeSpan.FromSeconds(5));
         }
     }
 }
