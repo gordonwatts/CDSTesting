@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using CMWSAddCDSDoc.Views;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -92,7 +93,8 @@ namespace CMWSAddCDSDoc
             }
 
             if (!resumed)
-                DisplayRootViewFor<HomeCMViewModel>();
+                //DisplayRootViewFor<HomeCMViewModel>();
+                DisplayRootView<HomeCMView>();
         }
     }
 }
