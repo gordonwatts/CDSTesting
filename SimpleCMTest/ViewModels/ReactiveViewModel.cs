@@ -34,13 +34,6 @@ namespace SimpleCMTest.ViewModels
             _nav = nav;
         }
 
-#if false
-        public void ButtonGo()
-        {
-            _nav.NavigateToViewModel<MyViewDudeViewModel>();
-            //NavigateToViewModel(typeof(MyViewDudeViewModel)));
-        }
-#endif
         public INavigationService _nav { get; set; }
     }
 }
