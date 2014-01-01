@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using Caliburn.Micro.Portable;
+using Caliburn.Micro.ReactiveUI;
 using ReactiveUI;
 using System;
 using System.Reactive.Linq;
@@ -54,14 +55,12 @@ namespace ViewModels.ViewModels
             ExecuteSearch = new ReactiveCommand();
             var searchResults = ExecuteSearch.RegisterAsync(x => searcher.GetPaperData(CDSLookupString));
 
-#if false
             searchResults
                 .Select(x => x.Title)
-                .ToProperty(this, x => x.Title, out _TitleOAPH);
+                .ToPropertyCM(this, x => x.Title, out _TitleOAPH);
             searchResults
                 .Select(x => x.Abstract)
-                .ToProperty(this, x => x.Abstract, out _AbstractOAPH);
-#endif
+                .ToPropertyCM(this, x => x.Abstract, out _AbstractOAPH);
 
             // When the user has finished typing in some amount of "stuff", we
             // should do the search.
