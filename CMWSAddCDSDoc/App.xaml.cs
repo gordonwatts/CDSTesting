@@ -1,7 +1,9 @@
 ﻿using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using ViewModels.ViewModels;
+using ViewModels.Web;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;
 
@@ -27,14 +29,20 @@ namespace CMWSAddCDSDoc
             container.RegisterWinRTServices();
 
             container
-                .PerRequest<HomeCMViewModel>();
+                .PerRequest<HomeCMViewModel>()
+                .PerRequest<AddCMViewModel>();
+
+            // Some of our global services
+            container.RegisterInstance(typeof(ICDSSearch), null, new RealCDSSearch());
 
             // We want to use the Frame in OnLaunched so set it up here
             PrepareViewFirst();
 
             // We are crossing projects for views and view models. Set that up for the
-            // type resolver.
+            // type resolver. Also make sure that it loads the types we are interested in!
+            AssemblySource.Instance.Add(typeof(HomeCMViewModel).GetTypeInfo().Assembly);
             ViewLocator.AddNamespaceMapping("ViewModels.ViewModels", "CMWSAddCDSDoc.Views");
+            ViewModelLocator.AddNamespaceMapping("CMWSAddCDSDoc.Views", "ViewModels.ViewModels");
         }
 
         protected override object GetInstance(Type service, string key)

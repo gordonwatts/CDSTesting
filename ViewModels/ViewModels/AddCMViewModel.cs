@@ -51,6 +51,9 @@ namespace ViewModels.ViewModels
         /// </summary>
         public AddCMViewModel(ICDSSearch searcher)
         {
+            if (searcher == null)
+                throw new ArgumentNullException("We must have a valid searcher");
+
             // This command fires off when we need to execute the command.
             ExecuteSearch = new ReactiveCommand();
             var searchResults = ExecuteSearch.RegisterAsync(x => searcher.GetPaperData(CDSLookupString));

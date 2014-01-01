@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="CMWSAddCDSDoc.Views.HomePageCMView"
+    x:Class="CMWSAddCDSDoc.Views.HomeCMView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CMWSAddCDSDoc.Views"
