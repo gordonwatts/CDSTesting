@@ -27,7 +27,7 @@ namespace CMWSAddCDSDoc
             container.RegisterWinRTServices();
 
             container
-                .PerRequest<HomePageCMViewModel>();
+                .PerRequest<HomeCMViewModel>();
 
             // We want to use the Frame in OnLaunched so set it up here
             PrepareViewFirst();
@@ -84,7 +84,7 @@ namespace CMWSAddCDSDoc
             }
 
             if (!resumed)
-                DisplayRootViewFor<HomePageCMViewModel>();
+                DisplayRootViewFor<HomeCMViewModel>();
         }
     }
 }

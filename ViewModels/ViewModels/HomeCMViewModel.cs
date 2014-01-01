@@ -6,7 +6,7 @@ namespace ViewModels.ViewModels
     /// <summary>
     /// The home page, with a simple button.
     /// </summary>
-    public class HomePageCMViewModel : Screen
+    public class HomeCMViewModel : Screen
     {
         /// <summary>
         /// Cache for moving around later on.
@@ -17,14 +17,14 @@ namespace ViewModels.ViewModels
         /// Setup.
         /// </summary>
         /// <param name="nav"></param>
-        public HomePageCMViewModel(INavService nav)
+        public HomeCMViewModel(INavService nav)
         {
             _nav = nav;
         }
 
         public void MyButton()
         {
-            _nav.DisplayViewModelFor<AddPageCMViewModel>();
+            _nav.DisplayViewModelFor<AddCMViewModel>();
         }
     }
 }

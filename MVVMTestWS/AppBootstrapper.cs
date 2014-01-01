@@ -1,5 +1,6 @@
 ﻿using MVVMTestWS.Views;
 using ReactiveUI;
+using Splat;
 using ViewModels.ViewModels;
 using ViewModels.Web;
 
@@ -12,7 +13,7 @@ namespace MVVMTestWS
         public AppBootstrapper(IMutableDependencyResolver dependencyResolver = null, IRoutingState testRouter = null)
         {
             Router = testRouter ?? new RoutingState();
-            dependencyResolver = dependencyResolver ?? RxApp.MutableResolver;
+            //dependencyResolver = dependencyResolver ?? RxApp;
 
             // Bind 
             RegisterParts(dependencyResolver);

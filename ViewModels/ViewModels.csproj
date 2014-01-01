@@ -34,8 +34,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Data\PaperData.cs" />
-    <Compile Include="ViewModels\AddPageCMViewModel.cs" />
-    <Compile Include="ViewModels\HomePageCMViewModel.cs" />
+    <Compile Include="ViewModels\AddCMViewModel.cs" />
+    <Compile Include="ViewModels\HomeCMViewModel.cs" />
     <Compile Include="ViewModels\HomePageVM.cs" />
     <Compile Include="Web\ICDSSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

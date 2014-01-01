@@ -10,7 +10,7 @@ namespace ViewModels.ViewModels
     /// <summary>
     /// Do the add page
     /// </summary>
-    public class AddPageCMViewModel : Screen
+    public class AddCMViewModel : Screen
     {
         /// <summary>
         /// Get/Set the CDS lookup string. We use this to do the search on the website of what
@@ -49,7 +49,7 @@ namespace ViewModels.ViewModels
         /// <summary>
         /// Setup the view model with default initial settings.
         /// </summary>
-        public AddPageCMViewModel(ICDSSearch searcher)
+        public AddCMViewModel(ICDSSearch searcher)
         {
             // This command fires off when we need to execute the command.
             ExecuteSearch = new ReactiveCommand();
