@@ -28,12 +28,11 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button Name="CmdAdd" Content="Add Document" HorizontalAlignment="Left" Margin="260,104,-10,0" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="CDS Search String:" VerticalAlignment="Top"/>
             <TextBox Name="CDSLookupString" HorizontalAlignment="Left" Height="72" Margin="10,32,-10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="456"/>
             <TextBlock Name="Title" HorizontalAlignment="Left" Margin="27,180,-7,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="46" Width="436"/>
             <TextBlock Name="Abstract" HorizontalAlignment="Left" Margin="27,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="204" Width="419"/>
-
+            <ProgressBar IsIndeterminate="{Binding SearchInProgress}" HorizontalAlignment="Left" Height="10" Margin="27,94,0,0" VerticalAlignment="Top" Width="419"/>
         </Grid>
     </Grid>
 
