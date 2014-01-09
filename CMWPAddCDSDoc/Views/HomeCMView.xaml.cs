@@ -8,5 +8,10 @@ namespace CMWPAddCDSDoc.Views
         {
             InitializeComponent();
         }
+
+        private void CmdAdd_Click(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }
