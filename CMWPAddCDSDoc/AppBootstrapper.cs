@@ -4,6 +4,7 @@ namespace CMWPAddCDSDoc
     using Microsoft.Phone.Controls;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Windows.Controls;
     using ViewModels.ViewModels;
     using ViewModels.Web;
@@ -19,7 +20,9 @@ namespace CMWPAddCDSDoc
 
         protected override void Configure()
         {
-            LogManager.GetLog = t => new DebugLog(t);
+            if (Debugger.IsAttached)
+                LogManager.GetLog = t => new DebugLog(t);
+
             container = new PhoneContainer();
             if (!Execute.InDesignMode)
                 container.RegisterPhoneServices(RootFrame);
