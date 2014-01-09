@@ -24,7 +24,7 @@ namespace ViewModels.ViewModels
 
         public void CmdAdd()
         {
-            _nav.DisplayViewModelFor<AddCMViewModel>();
+            _nav.NavigateToViewModel<AddCMViewModel>();
         }
     }
 }
